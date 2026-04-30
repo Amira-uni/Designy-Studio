@@ -1,0 +1,904 @@
+<!doctype html>
+<html lang="en">
+<head>
+  
+  <meta name="google-site-verification" content="sJ7SgHL3mHSKM_YllHDIz6PJkYfYqdiXgE61OqMGuNs" />
+  <meta name="robots" content="index, follow">
+<meta name="author" content="Designy Studio">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="utf-8" />
+  <meta name="description" content="Designy Studio provides premium web development, Shopify store setup, SEO and digital marketing services for businesses worldwide — boost revenue and grow globally.">
+  <title>Designy Studio — Web Development, Shopify & SEO Services Worldwide</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <!-- Optional Urdu-friendly font fallback -->
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@400;600&display=swap" rel="stylesheet">
+
+  <!-- GSAP -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+  <style>
+    /* -------------------------
+       Base & variables
+       ------------------------- */
+    :root{
+      --page-bg-1: #0b0f2a;
+      --page-bg-2: #12082b;
+      --accent-cyan: #3fe6ff;
+      --accent-orange: #ff8a4b;
+      --muted: rgba(255,255,255,0.68);
+      --glass: rgba(255,255,255,0.04);
+      --maxw: 1200px;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: 'Poppins', 'Inter', system-ui, -apple-system, sans-serif;
+      color:#fff;
+      background:
+        radial-gradient(800px 500px at 18% 20%, rgba(70,30,120,0.34), transparent 50%),
+        radial-gradient(900px 600px at 82% 78%, rgba(255,110,65,0.25), transparent 50%),
+        linear-gradient(180deg,var(--page-bg-1),var(--page-bg-2));
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      overflow-x:hidden;
+    }
+
+    /* subtle grain */
+    body::before{
+      content:""; position:fixed; inset:0; pointer-events:none; z-index:0;
+      background-image: radial-gradient(rgba(255,255,255,0.01) 1px, transparent 1px);
+      background-size:4px 4px; opacity:0.55; mix-blend-mode:overlay;
+    }
+
+    .container{max-width:var(--maxw);margin:0 auto;padding:28px;position:relative;z-index:2}
+
+    /* NAV */
+    header.site-header{display:flex;justify-content:space-between;align-items:center;padding:8px 0}
+    .brand{font-weight:800;letter-spacing:0.6px;color:var(--accent-cyan)}
+    nav.site-nav ul{list-style:none;display:flex;gap:18px;padding:0;margin:0}
+    nav.site-nav a{color:var(--muted);text-decoration:none;font-weight:600;font-size:14px}
+    .nav-cta{padding:10px 14px;border-radius:999px;background:linear-gradient(90deg,var(--accent-cyan),#8af3ff);color:#001224;font-weight:700;border:0}
+
+    /* HERO (futuristic neon) */
+    .hero-wrap{display:grid;grid-template-columns:1fr 520px;gap:36px;align-items:center;margin-top:22px}
+    @media (max-width:1100px){.hero-wrap{grid-template-columns:1fr 440px}}
+    @media (max-width:820px){.hero-wrap{grid-template-columns:1fr;gap:24px}}
+
+    .hero-left{padding-right:6px}
+    .kicker{display:inline-block;padding:6px 10px;border-radius:999px;background:rgba(255,255,255,0.03);color:var(--muted);font-size:13px;margin-bottom:12px}
+    .hero-title{font-size:44px;line-height:1.02;margin:6px 0 14px;font-weight:800}
+    .hero-title .local{display:block;font-size:18px;color:#ffe6d6;margin-top:8px;font-weight:600}
+    .hero-sub{color:var(--muted);max-width:66%;margin-bottom:20px}
+    @media (max-width:820px){.hero-title{font-size:28px}.hero-sub{max-width:100%}}
+
+    .cta-row{display:flex;gap:12px;align-items:center}
+    .btn{padding:12px 18px;border-radius:999px;border:0;cursor:pointer;font-weight:700}
+    .btn-primary{background:linear-gradient(90deg,var(--accent-cyan), #9ff6ff); color:#001224; position:relative; overflow:hidden}
+    .btn-ghost{background:transparent;border:1px solid rgba(255,255,255,0.06);color:var(--muted)}
+
+    /* neon swipe effect for primary - uses pseudo from earlier part */
+    .btn-primary.btn-neon::before{
+      content:"";position:absolute;left:-140px;top:0;width:140px;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.6),transparent);transform:skewX(-18deg);animation:swipe 3s linear infinite;
+    }
+    @keyframes swipe{0%{left:-140px}100%{left:110%}}
+
+    /* HERO RIGHT — premium mockup (glass dashboard) */
+    .mockup-wrap{position:relative;display:flex;justify-content:center;align-items:flex-start}
+    .mockup-card{
+      width:520px;height:360px;border-radius:20px;padding:22px;
+      background:linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));
+      border:1px solid rgba(255,255,255,0.05);box-shadow:0 30px 90px rgba(10,8,20,0.6);
+      position:relative;overflow:hidden;backdrop-filter:blur(6px);
+    }
+    .mockup-top{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+    .mockup-dot{width:10px;height:10px;border-radius:50%;background:#111;box-shadow:0 0 6px rgba(255,255,255,0.02) inset}
+    .mockup-grid{display:grid;grid-template-columns:1fr 160px;gap:12px;height:calc(100% - 56px)}
+
+    .mini-chart{height:72px;border-radius:10px;background:linear-gradient(90deg, rgba(255,255,255,0.02), transparent);display:flex;align-items:center;justify-content:center;color:var(--muted)}
+    .panel{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border-radius:12px;padding:10px;border:1px solid rgba(255,255,255,0.03);position:relative}
+
+    /* neon glow accents */
+    .glow-cyan{position:absolute;right:12px;top:-40px;width:260px;height:220px;filter:blur(40px);background:radial-gradient(circle at 40% 30%, rgba(63,230,255,0.45), transparent)}
+    .glow-orange{position:absolute;left:-60px;bottom:10px;width:360px;height:240px;filter:blur(48px);background:radial-gradient(circle at 40% 50%, rgba(255,138,75,0.40), transparent)}
+
+    /* floating metrics (glass) */
+    .metric-card{position:absolute; right:64px; bottom:18px; width:160px; padding:12px; border-radius:12px; background:rgba(255,255,255,0.045); border:1px solid rgba(255,255,255,0.04); text-align:left}
+    .metric-card h4{margin:0 0 6px;font-size:14px}
+    .metric-card p{margin:0;color:var(--muted);font-size:13px}
+
+    /* floating geometric */
+    .float-geo{position:absolute;border-radius:12px;filter:blur(8px);opacity:0.9}
+
+    /* particles */
+    .particles{position:absolute;inset:0;pointer-events:none;z-index:0}
+    .particle{position:absolute;width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,0.06);animation:drift 14s linear infinite;opacity:.28}
+    @keyframes drift{0%{transform:translateY(0) translateX(0) scale(1);opacity:.2}50%{opacity:.7}100%{transform:translateY(-220px) translateX(40px) scale(.6);opacity:0}}
+
+    /* floating icons (reused from part 2) */
+    .floating-icon{position:absolute;font-size:26px;opacity:.82;filter:drop-shadow(0 6px 18px rgba(0,0,0,0.6))}
+
+    /* sections lower */
+    section.grid {margin-top:48px}
+    .services-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px}
+    .service-box{background:rgba(255,255,255,0.02);padding:18px;border-radius:12px}
+
+    footer{margin-top:60px;color:var(--muted);text-align:center;padding:28px 0}
+
+    .service-box, .work div {
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+.service-box:hover, .work div:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 20px 60px rgba(63,230,255,0.2);
+}
+
+/* Work card hover sweep effect */
+.work-card {
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.work-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -120%;
+  width: 120%;
+  height: 100%;
+  background: linear-gradient(
+    120deg,
+    rgba(255,255,255,0.05),
+    rgba(63,230,255,0.18),
+    rgba(255,138,75,0.12)
+  );
+  transform: skewX(-25deg);
+  transition: all 0.6s ease;
+}
+
+.work-card:hover::before {
+  left: 120%;
+}
+
+.work-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 25px 70px rgba(63,230,255,0.25);
+}
+
+#discountPopup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.8);
+  background: linear-gradient(90deg,#3fe6ff,#ff8a4b);
+  color: #001224;
+  padding: 28px 36px;
+  border-radius: 18px;
+  box-shadow: 0 20px 60px rgba(63,230,255,0.3);
+  text-align: center;
+  z-index: 9999;
+  font-family: 'Poppins',sans-serif;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s ease, transform 0.4s ease;
+}
+#discountPopup.show {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translate(-50%, -50%) scale(1);
+}
+#discountPopup h2 {
+  margin-bottom: 12px;
+  font-size: 22px;
+}
+#discountPopup p {
+  margin-bottom: 16px;
+  font-size: 16px;
+}
+.popup-btn {
+  display: inline-block;
+  padding: 12px 24px;
+  background: #001224;
+  color: #3fe6ff;
+  font-weight: 700;
+  border-radius: 999px;
+  text-decoration: none;
+  font-size: 16px;
+  transition: transform 0.2s;
+}
+.popup-btn:hover { transform: scale(1.05); }
+.popup-close {
+  margin-top: 12px;
+  font-size: 12px;
+  cursor: pointer;
+  text-decoration: underline;
+  color: #001224;
+}
+@media (max-width: 820px) {
+  #discountPopup {
+    width: 90%;
+    padding: 20px;
+    font-size: 14px;
+  }
+  .popup-btn { padding: 10px 18px; font-size: 14px; }
+}
+@media (max-width: 768px) {
+  .mockup-card {
+    width: 100%;
+    height: auto;
+  }
+
+  .mockup-wrap {
+    transform: scale(0.95);
+  }
+}
+@media (max-width: 768px) {
+  header.site-header {
+    flex-direction: column;
+    gap: 12px;
+    text-align: center;
+  }
+
+  nav.site-nav ul {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .nav-cta {
+    width: 100%;
+  }
+}
+
+@media (max-width: 768px) {
+  .floating-icon,
+  .particles,
+  .float-geo {
+    display: none;
+  }
+}
+@media (max-width: 768px) {
+  body {
+    font-size: 16px;
+    line-height: 1.6;
+  }
+}
+
+.mobile-cta {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .mobile-cta {
+    display: block;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: linear-gradient(90deg,#25D366,#1ebe57);
+    text-align: center;
+    padding: 14px;
+    z-index: 9999;
+  }
+
+  .mobile-cta a {
+    color: #001224;
+    font-weight: 800;
+    font-size: 16px;
+    text-decoration: none;
+  }
+
+  body {
+    padding-bottom: 70px;
+  }
+}
+
+
+  </style>
+</head>
+<body>
+
+  <div class="container">
+
+    <!-- HEADER -->
+    <header class="site-header" role="banner">
+      <div class="brand">Designy <span style="opacity:.85;font-weight:600;color:var(--muted)">Studio</span></div>
+      <nav class="site-nav" role="navigation" aria-label="main">
+        <ul>
+          <li><a href="#home">Home</a></li>
+          <li><a href="#services">Services</a></li>
+          <li><a href="#work">Work</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </nav>
+      <button class="nav-cta" onclick="window.location.href='contact.html'">DM for Fast Website</button>
+    </header>
+ <!-- <h1>Fast 1-Page Websites for Small Businesses — Ready in 5 Days
+Starter Website – Only $70
+Want more leads & customers online?</h1> -->
+    <!-- HERO -->
+    <section id="home" class="hero-wrap" aria-label="Hero">
+      <!-- LEFT -->
+      <div class="hero-left">
+        <div class="kicker">Web • Shopify • SEO • Marketing</div>
+
+        <!-- English headline + Urdu local line -->
+       <h1 class="hero-title">
+  We Build High Converting Websites & Shopify Stores
+  <span class="local">
+    That Bring You More Leads & Sales in 5–7 Days
+  </span>
+</h1>
+
+
+        <p class="hero-sub">
+We help small businesses, startups, and online sellers
+<strong>get more customers</strong> through <strong>professional websites</strong>,
+Shopify stores, and SEO  built fast, mobile-first,
+and optimized for conversions.
+</p>
+
+
+        <div class="cta-row">
+          <button class="btn btn-primary btn-neon" onclick="window.location.href='contact.html'">📩 Get Free WhatsApp Consultation</button>
+          <button class="btn btn-ghost" onclick="scrollToWork()">See Our Work</button>
+        </div>
+
+            <div style="margin-top:18px;display:flex;gap:18px;flex-wrap:wrap;color:#ffe6d6;font-size:14px">
+  <div>💻 Multiple Real & Concept Projects Delivered</div>
+  <div>📈 45% Average Revenue Growth</div>
+  <div>🛍️ 90+ Websites & Stores Built</div>
+  <div>🌎 Clients Served in 6+ Countries</div>
+  <div> ✔ Delivery in 3–5 Days</div>
+</div>
+
+
+        <!-- quick service chips -->
+        <div style="margin-top:18px;display:flex;gap:10px;flex-wrap:wrap">
+          <div style="background:rgba(255,255,255,0.03);padding:8px 12px;border-radius:999px">Web Development</div>
+          <div style="background:rgba(255,255,255,0.03);padding:8px 12px;border-radius:999px">Shopify Stores</div>
+          <div style="background:rgba(255,255,255,0.03);padding:8px 12px;border-radius:999px">SEO</div>
+          <div style="background:rgba(255,255,255,0.03);padding:8px 12px;border-radius:999px">Digital Marketing</div>
+        </div>
+      </div>
+
+      <!-- RIGHT -->
+      <div class="mockup-wrap" aria-hidden="true">
+        <div class="glow-cyan" aria-hidden="true"></div>
+        <div class="glow-orange" aria-hidden="true"></div>
+
+        <div class="mockup-card" id="mockupCard">
+          <div class="mockup-top">
+            <div class="mockup-dot"></div>
+            <div class="mockup-dot" style="opacity:.85"></div>
+            <div style="flex:1"></div>
+            <div style="font-size:12px;color:var(--muted)">v3.0</div>
+          </div>
+
+          <div class="mockup-grid">
+            <div class="panel">
+              <strong style="display:block;margin-bottom:8px">Visitors</strong>
+              <div class="mini-chart">Live traffic • 1,482</div>
+              <div style="height:8px"></div>
+              <div style="display:flex;gap:8px;align-items:center">
+                <div style="width:46px;height:46;border-radius:8px;background:linear-gradient(90deg,var(--accent-cyan),var(--accent-orange));display:flex;align-items:center;justify-content:center;font-weight:700;color:#001224">A</div>
+                <div style="font-size:13px;color:var(--muted)">New session rate <br><strong style="color:#fff">+18%</strong></div>
+              </div>
+            </div>
+
+            <div class="panel">
+              <div style="height:100%;display:flex;flex-direction:column;justify-content:center;align-items:center">
+                <div style="font-size:28px;font-weight:800;color:var(--accent-cyan)">540$</div>
+                <div style="color:var(--muted);margin-top:6px;font-size:13px">Estimated revenue</div>
+              </div>
+            </div>
+
+            <!-- wide panel bottom -->
+            <div class="panel" style="grid-column:1/-1;display:flex;align-items:center;justify-content:space-between;padding:12px 14px">
+              <div>
+                <div style="font-size:14px;color:var(--muted)">Top channels</div>
+                <div style="font-weight:700;margin-top:6px">Organic • Ads • Referrals</div>
+              </div>
+              <div style="display:flex;gap:10px;align-items:center">
+                <div style="font-size:12px;color:var(--muted)">CTR</div>
+                <div style="background:linear-gradient(90deg,var(--accent-cyan),var(--accent-orange));padding:8px;border-radius:8px;color:#001224;font-weight:700">4.8%</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="metric-card" aria-hidden="true">
+            <h4>Monthly Leads</h4>
+            <p>128 <span style="color:var(--muted)">• +34%</span></p>
+          </div>
+        </div>
+
+        <!-- floating geometry -->
+        <div class="float-geo" style="right:120px;bottom:-40px;width:80px;height:80px;background:linear-gradient(90deg,var(--accent-cyan),transparent);"></div>
+
+        <!-- particles (JS will populate invisible container) -->
+        <div class="particles" id="particles"></div>
+
+        <!-- small floating icons 
+        <div class="floating-icon" style="top:36px; left:62px">💻</div>
+        <div class="floating-icon" style="top:140px; left:10%">🛍️</div>
+        <div class="floating-icon" style="top:220px; left:34%">📈</div> -->
+        
+      </div>
+    </section>
+
+    <!-- WORK -->
+<section id="work" style="margin-top:48px">
+  <h2 style="font-family:Inter, Poppins; margin-bottom:8px">
+    Selected Projects & Live Builds
+  </h2>
+  <p class="muted" style="margin-bottom:16px">
+    Websites and stores we’ve personally built, along with selected concept projects
+to demonstrate design, UX, and conversion expertise.
+  </p>
+
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px">
+
+    <!-- PROJECT 1: SwiftBuy Shopify -->
+    <a href="https://swiftbuy-9496.myshopify.com/" class="work-card" target="_blank"
+       style="background:rgba(255,255,255,0.03);padding:18px;border-radius:14px;
+              text-decoration:none;color:#fff;transition:0.3s">
+      <img src="images/shopify-screenshot.png" alt="SwiftBuy Shopify Store"
+           style="width:100%;border-radius:10px;margin-bottom:12px">
+      <h3>SwiftBuy — Shopify Store</h3>
+      <p class="muted">
+        Full Shopify setup • Product pages • Trust badges • Conversion-focused layout  
+        <br><strong>Built & managed end-to-end</strong>
+      </p>
+    </a>
+
+    <!-- PROJECT 2: Luxe Leather -->
+    <a href="https://luxeleathers.netlify.app/" class="work-card" target="_blank"
+       style="background:rgba(255,255,255,0.03);padding:18px;border-radius:14px;
+              text-decoration:none;color:#fff;transition:0.3s">
+      <img src="images/leathur.lux-image.png" alt="Luxe Leather Website"
+           style="width:100%;border-radius:10px;margin-bottom:12px">
+      <h3>Luxe Leathers — Brand Website</h3>
+      <p class="muted">
+        Custom frontend design • Branding • Responsive layout  
+        <br><strong>Modern luxury business website</strong>
+      </p>
+    </a>
+
+    <!-- PROJECT 3: Demo / Concept -->
+    <div class="work-card"
+      style="background:rgba(255,255,255,0.02);padding:18px;border-radius:14px">
+      <img src="images/Home.png" alt="Business Website Concept"
+           style="width:100%;border-radius:10px;margin-bottom:12px">
+      <h3>Business Website Concept</h3>
+      <p class="muted">
+        High-conversion website concept built to demonstrate  
+        <strong>Design, UX & SEO skills</strong>
+      </p>
+    </div>
+
+  </div>
+
+ <div style="margin-top:24px; text-align:center;">
+  <a href="portfolio.html"  class="btn btn-primary btn-neon" style="
+    display:inline-block;
+    padding:14px 28px;
+    background:linear-gradient(90deg,#3fe6ff,#ff8a4b);
+    color:#001224;
+    font-weight:700;
+    border-radius:999px;
+    text-decoration:none;
+    font-size:16px;
+    transition: transform 0.2s;
+  " 
+  onmouseover="this.style.transform='scale(1.05)'" 
+  onmouseout="this.style.transform='scale(1)'">
+    View Full Portfolio →
+  </a>
+</div>
+</section>
+
+<!-- SERVICES -->
+    <section id="services" class="grid">
+      <h2 style="font-family:Inter, Poppins; margin-bottom:12px">Our Services</h2>
+      <div class="services-grid" aria-hidden="false">
+        <div class="service-box" class="work-card">
+          <h3>Web Development</h3>
+          <p class="muted">Custom websites and landing pages for businesses worldwide, built fast and optimized for conversions.</p>
+        </div>
+        <div class="service-box">
+          <h3>Shopify Stores</h3>
+          <p class="muted">Complete Shopify setup & optimization — turn visitors into customers globally with high-converting store designs.</p>
+        </div>
+        <div class="service-box">
+          <h3>SEO & Growth</h3>
+          <p class="muted">SEO strategies and content marketing that drive leads from international markets, not just local searches.</p>
+        </div>
+        <div class="service-box">
+          <h3>Digital Marketing</h3>
+          <p class="muted">Paid ads, funnels, and performance tracking for scaling businesses internationally.</p>
+        </div>
+      </div>
+    </section>
+
+<section style="margin-top:60px">
+  <h2>How It Works</h2>
+
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px">
+
+    <div class="service-box">
+      <h3>1️⃣ Contact Us</h3>
+      <p class="muted">Message us on WhatsApp and tell us about your business.</p>
+    </div>
+
+    <div class="service-box">
+      <h3>2️⃣ We Plan & Design</h3>
+      <p class="muted">We create a professional design focused on conversions.</p>
+    </div>
+
+    <div class="service-box">
+      <h3>3️⃣ Build & Review</h3>
+      <p class="muted">Website delivered in 3–5 days. Revisions included.</p>
+    </div>
+
+    <div class="service-box">
+      <h3>4️⃣ Launch & Support</h3>
+      <p class="muted">Final delivery + guidance to grow your business.</p>
+    </div>
+
+  </div>
+</section>
+
+<section style="margin-top:50px">
+  <h2>Who We Help</h2>
+
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px">
+
+    <div class="service-box">Local Businesses</div>
+    <div class="service-box">Online Stores</div>
+    <div class="service-box">Startups & Founders</div>
+    <div class="service-box">Personal Brands</div>
+
+  </div>
+</section>
+
+
+
+<!-- WHY CHOOSE US -->
+<section style="margin-top:56px">
+  <h2 style="font-family:Inter, Poppins;margin-bottom:10px">
+    Why Businesses Choose Designy Studio
+  </h2>
+  <p class="muted" style="max-width:720px;margin-bottom:20px">
+    We don’t just build websites — we build <strong>conversion-focused digital assets</strong>
+    that help businesses grow locally and internationally.
+  </p>
+
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px">
+
+    <div class="service-box">
+      <h3>Results First</h3>
+      <p class="muted">Every project is designed to generate leads, sales, or inquiries — not just look good.</p>
+    </div>
+
+    <div class="service-box">
+      <h3>International Standards</h3>
+      <p class="muted">Clean UI, fast loading, mobile-first design aligned with US & EU market expectations.</p>
+    </div>
+
+    <div class="service-box">
+      <h3>All-in-One Partner</h3>
+      <p class="muted">Web, Shopify, SEO & marketing — no need to hire multiple freelancers.</p>
+    </div>
+
+    <div class="service-box">
+      <h3>Affordable & Transparent</h3>
+      <p class="muted">Professional quality at fair pricing, ideal for startups and growing businesses.</p>
+    </div>
+
+  </div>
+</section>
+
+
+<section id="testimonials" style="margin-top:48px">
+  <h2 style="margin-bottom:12px">What Our Clients Say</h2>
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px">
+    <div style="background:rgba(255,255,255,0.02);padding:18px;border-radius:12px">
+      <p>“Designy Studio rebuilt our Shopify store and
+<strong>sales doubled in just 3 months</strong>.
+Very professional and reliable.”</p>
+<strong>— Ali R., Pakistan</strong>
+    </div>
+    <div style="background:rgba(255,255,255,0.02);padding:18px;border-radius:12px">
+      <p>“Professional website + SEO — <strong>we started getting quality leads immediately</strong>. Excellent international service.”</p>
+      <strong>— John D., USA</strong>
+    </div>
+  </div>
+</section>
+
+<div style="
+  background:rgba(255,255,255,0.05);
+  border:1px solid rgba(63,230,255,0.4);
+  padding:22px;
+  border-radius:14px;
+  margin:40px 0;
+  text-align:center;
+">
+  <h3>✅ 100% Satisfaction Guarantee</h3>
+  <p class="muted">
+    We revise your website until you are fully satisfied.
+    No risk. No hidden charges.
+  </p>
+</div>
+
+
+<!-- PRICING -->
+<section style="margin-top:64px">
+  <h2 style="font-family:Inter, Poppins;margin-bottom:10px">
+    Simple, Transparent Pricing
+  </h2>
+  <p class="muted" style="max-width:720px;margin-bottom:24px">
+    Flexible packages for startups, small businesses, and growing brands.
+    Custom quotes available for larger projects.
+  </p>
+
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px">
+
+    <!-- Starter -->
+    <div class="work-card" style="background:rgba(255,255,255,0.03);padding:22px;border-radius:14px">
+      <h3>Starter Website</h3>
+      <p class="muted">Best for personal brands & small businesses</p>
+      <h2>$70</h2>
+      <p class="muted"><strong>Best for:</strong> Small businesses & startups</p>
+      <ul class="muted">
+        <li>✔ 1–3 Pages</li>
+        <li>✔ Mobile Responsive</li>
+        <li>✔ Contact Form</li>
+        <li>✔ Basic SEO</li>
+      </ul>
+      <a href="contact.html" class="btn btn-primary btn-neon" style="
+    display:inline-block;
+    padding:14px 28px;
+    background:linear-gradient(90deg,#3fe6ff,#ff8a4b);
+    color:#001224;
+    font-weight:700;
+    border-radius:999px;
+    text-decoration:none;
+    font-size:16px;
+    transition: transform 0.2s;
+  " 
+  onmouseover="this.style.transform='scale(1.05)'" 
+  onmouseout="this.style.transform='scale(1)'">>Get Started</a>
+    </div>
+
+    <!-- Shopify -->
+    <div class="work-card" style="background:rgba(255,255,255,0.05);padding:22px;border-radius:14px;border:1px solid rgba(63,230,255,0.4)">
+      <h3>Shopify Store</h3>
+      <p class="muted">Perfect for online selling</p>
+      <h2>$99</h2>
+      <ul class="muted">
+        <li>✔ Premium Theme Setup</li>
+        <li>✔ Products + Collections</li>
+        <li>✔ Payment & Shipping</li>
+        <li>✔ Conversion Optimised</li>
+      </ul>
+      <a href="contact.html" class="btn btn-primary btn-neon" style="
+    display:inline-block;
+    padding:14px 28px;
+    background:linear-gradient(90deg,#3fe6ff,#ff8a4b);
+    color:#001224;
+    font-weight:700;
+    border-radius:999px;
+    text-decoration:none;
+    font-size:16px;
+    transition: transform 0.2s;
+  " 
+  onmouseover="this.style.transform='scale(1.05)'" 
+  onmouseout="this.style.transform='scale(1)'">>Get Started</a>
+    </div>
+
+    <!-- Growth -->
+    <div class="work-card" style="background:rgba(255,255,255,0.03);padding:22px;border-radius:14px">
+      <h3>Growth Package</h3>
+      <p class="muted">For serious businesses</p>
+      <h2>Custom</h2>
+      <ul class="muted">
+        <li>✔ Custom Design</li>
+        <li>✔ SEO + Speed</li>
+        <li>✔ Marketing Setup</li>
+        <li>✔ Ongoing Support</li>
+      </ul>
+      <a href="contact.html" class="btn btn-primary btn-neon" style="
+    display:inline-block;
+    padding:14px 28px;
+    background:linear-gradient(90deg,#3fe6ff,#ff8a4b);
+    color:#001224;
+    font-weight:700;
+    border-radius:999px;
+    text-decoration:none;
+    font-size:16px;
+    transition: transform 0.2s;
+  " 
+  onmouseover="this.style.transform='scale(1.05)'" 
+  onmouseout="this.style.transform='scale(1)'">>Get Started</a>
+    </div>
+
+  </div>
+</section>
+
+
+    <!-- CONTACT / CTA -->
+   <!-- FINAL CTA -->
+<section style="margin-top:72px;text-align:center">
+  <h2 style="font-family:Inter, Poppins">
+    Ready to Grow Your Business Online?
+  </h2>
+  <p class="muted" style="max-width:700px;margin:12px auto">
+    Let’s build a website or Shopify store that actually converts visitors into customers.
+    Free consultation included.
+  </p>
+ <a href="contact.html" class="btn btn-primary btn-neon" style="
+    display:inline-block;
+    padding:14px 28px;
+    background:linear-gradient(90deg,#3fe6ff,#ff8a4b);
+    color:#001224;
+    font-weight:700;
+    border-radius:999px;
+    text-decoration:none;
+    font-size:16px;
+    transition: transform 0.2s;
+  " 
+  onmouseover="this.style.transform='scale(1.05)'" 
+  onmouseout="this.style.transform='scale(1)'">>📩 Get Free WhatsApp Consultation</a>
+</section>
+
+
+<section style="margin-top:60px">
+  <p class="muted" style="font-size:14px;max-width:900px">
+    Designy Studio offers professional web development, Shopify store setup,
+    SEO optimization, and digital marketing services for clients in the USA,
+    UK, Europe, UAE, and worldwide. We specialize in high-performance websites
+    designed to increase sales, leads, and brand credibility.
+  </p>
+</section>
+
+
+    <footer>
+     <span id="year"></span>© 2025 Designy Studio  
+Trusted Web & Shopify Partner for Businesses Worldwide  
+USA • UK • Europe • UAE • Pakistan
+    </footer>
+  </div>
+
+  <!-- Scripts: particles, mockup parallax, GSAP reveals -->
+  <script>
+    // small helpers
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // SCROLL TO helpers
+    function scrollToContact(){ document.getElementById('contact').scrollIntoView({behavior:'smooth'}); }
+    function scrollToWork(){ document.getElementById('work').scrollIntoView({behavior:'smooth'}); }
+
+    // particles generator
+    (function createParticles(){
+      const c = document.getElementById('particles');
+      if(!c) return;
+      const count = 18;
+      for(let i=0;i<count;i++){
+        const d = document.createElement('div');
+        d.className = 'particle';
+        d.style.left = Math.random()*100 + '%';
+        d.style.top = 60 + Math.random()*35 + '%';
+        d.style.width = (3 + Math.random()*6) + 'px';
+        d.style.height = d.style.width;
+        d.style.opacity = (0.05 + Math.random()*0.5);
+        d.style.animationDuration = (10 + Math.random()*20) + 's';
+        c.appendChild(d);
+      }
+    })();
+
+    // mockup parallax (mouse)
+    (function mockupParallax(){
+      const wrap = document.querySelector('.mockup-wrap');
+      const card = document.getElementById('mockupCard');
+      const cyan = document.querySelector('.glow-cyan');
+      const orange = document.querySelector('.glow-orange');
+      if(!wrap || !card) return;
+      wrap.addEventListener('mousemove', (e)=>{
+        const r = wrap.getBoundingClientRect();
+        const x = (e.clientX - r.left)/r.width - 0.5;
+        const y = (e.clientY - r.top)/r.height - 0.5;
+        card.style.transform = `translate(${x*10}px, ${y*8}px) rotate(${x*1.2}deg)`;
+        cyan.style.transform = `translate(${x*18}px, ${y*8}px)`;
+        orange.style.transform = `translate(${x*-14}px, ${y*-6}px)`;
+      });
+      wrap.addEventListener('mouseleave', ()=>{ card.style.transform='translate(0,0) rotate(0)'; cyan.style.transform=''; orange.style.transform=''; });
+    })();
+
+    // small reveal using GSAP
+    (function gsapReveal(){
+      if(!window.gsap) return;
+      gsap.registerPlugin(ScrollTrigger);
+      gsap.from(".hero-left .kicker", {opacity:0, y:12, duration:.6, delay:.2});
+      gsap.from(".hero-title", {opacity:0, y:18, duration:.8, delay:.25});
+      gsap.from(".hero-sub", {opacity:0, y:20, duration:.8, delay:.35});
+      gsap.from(".cta-row .btn", {opacity:0, y:20, duration:.6, stagger:.08, delay:.5});
+
+      gsap.from(".mockup-card",{opacity:0, y:24, duration:.9, delay:.45, ease:"power3.out"});
+      gsap.utils.toArray('.service-box').forEach((el,i)=>{
+        gsap.from(el,{opacity:0,y:20,duration:.7,delay:0.2 + i*0.08, scrollTrigger:{trigger:el, start:"top 85%"}});
+      });
+      gsap.from('.work > div', {opacity:0,y:20, stagger:.12, scrollTrigger:{trigger:'#work', start:"top 80%"}});
+    })();
+
+   // Show popup after 3 seconds
+window.addEventListener('load', () => {
+  setTimeout(() => {
+    const popup = document.getElementById('discountPopup');
+    popup.classList.add('show');
+  }, 3000);
+});
+
+// Close popup
+function closePopup() {
+  const popup = document.getElementById('discountPopup');
+  popup.classList.remove('show');
+}
+
+
+  </script>
+
+ <!-- Sticky Mobile CTA -->
+<div class="mobile-cta">
+  <a href="https://wa.me/923099332377?text=Hello!%20I%20want%20a%20website%20for%20my%20business."
+     target="_blank">
+    📩 Get Free WhatsApp Consultation
+  </a>
+</div>
+
+
+<!-- 50% Off Pop-up -->
+<div id="discountPopup" style="
+  position:fixed;
+  top:50%;
+  left:50%;
+  transform:translate(-50%,-50%);
+  background:linear-gradient(90deg,#3fe6ff,#ff8a4b);
+  color:#001224;
+  padding:24px 32px;
+  border-radius:16px;
+  box-shadow:0 20px 60px rgba(63,230,255,0.3);
+  text-align:center;
+  z-index:9999;
+  font-family:'Poppins',sans-serif;
+">
+  <h2 style="margin-bottom:12px">🎉 Special Offer!</h2>
+  <p style="margin-bottom:16px;font-size:16px">
+    Get <strong>50% OFF</strong> for all clients
+  </p>
+  <a href="https://wa.me/923099332377?text=Hello!%20I%20want%20to%20claim%20my%2050%25%20discount%20for%20my%20website/shopify%20project." 
+   target="_blank" 
+   class="popup-btn" style="
+    display:inline-block;
+    padding:12px 24px;
+    background:#001224;
+    color:#3fe6ff;
+    font-weight:700;
+    border-radius:999px;
+    text-decoration:none;
+    font-size:16px;
+    transition:transform 0.2s;
+  " onmouseover="this.style.transform='scale(1.05)'" 
+    onmouseout="this.style.transform='scale(1)'">
+    Claim 50% Off
+  </a>
+  <div style="margin-top:12px;font-size:12px;cursor:pointer;text-decoration:underline;" onclick="closePopup()">Close</div>
+
+  </div>
+
+</body>
+</html>
+

@@ -1,0 +1,205 @@
+<!doctype html> 
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Designy Studio — Full Portfolio</title>
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    body {
+      margin:0;
+      font-family:'Poppins', sans-serif;
+      background:#0b0f2a;
+      color:#fff;
+      overflow-x:hidden;
+    }
+    .container {
+      max-width:1200px;
+      margin:0 auto;
+      padding:28px;
+      position:relative;
+      z-index:2;
+    }
+
+    h1, h2, h3 {margin:0 0 12px 0;}
+    p {margin:6px 0;}
+    a {color:#3fe6ff; text-decoration:none;}
+
+    /* Filter Buttons */
+    .filter-row {display:flex; gap:12px; margin-top:24px; flex-wrap:wrap;}
+    .filter-btn {padding:8px 14px; border-radius:999px; border:1px solid rgba(255,255,255,0.06); background:transparent; cursor:pointer; color:#fff; font-weight:600;}
+    .filter-btn.active {background:linear-gradient(90deg,#3fe6ff,#ff8a4b); color:#001224;}
+
+    /* Portfolio Grid */
+    .grid {
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+      gap:20px;
+      margin-top:24px;
+      position:relative;
+    }
+
+    /* Project Card */
+    .project-box {
+      background: rgba(255,255,255,0.02);
+      padding: 18px;
+      border-radius: 12px;
+      transition: transform 0.3s, box-shadow 0.3s;
+      display:block;
+      text-decoration:none;
+      color:#fff;
+      position:relative;
+      overflow:hidden;
+    }
+    .project-box:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 20px 60px rgba(63,230,255,0.2);
+    }
+    .project-box::before {
+      content:"";
+      position:absolute;
+      top:0; left:-100%;
+      width:100%;
+      height:100%;
+      background: linear-gradient(120deg, rgba(255,255,255,0.05), rgba(63,230,255,0.15), rgba(255,138,75,0.1));
+      transform: skewX(-25deg);
+      transition: all 0.5s;
+    }
+    .project-box:hover::before {left:100%;}
+
+    .project-box img {
+      width:100%;
+      border-radius:8px;
+      margin-bottom:12px;
+    }
+
+    /* CTA buttons */
+    .back-link {
+      display:inline-block;
+      margin-top:24px;
+      padding:12px 24px;
+      background:linear-gradient(90deg,#3fe6ff,#ff8a4b);
+      color:#001224;
+      font-weight:700;
+      border-radius:999px;
+      text-decoration:none;
+      transition: transform 0.2s;
+    }
+    .back-link:hover {transform: scale(1.05);}
+
+    /* Floating neon accent */
+    .glow-cyan {
+      position:absolute;
+      right:20px;
+      top:-40px;
+      width:200px;
+      height:150px;
+      filter:blur(40px);
+      background:radial-gradient(circle at 40% 30%, rgba(63,230,255,0.35), transparent);
+      z-index:0;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+
+    <!-- Page Heading -->
+    <h1>Designy Studio — Full Portfolio</h1>
+    <p>We deliver professional websites, Shopify stores, and marketing services worldwide. Each project focuses on <strong>real results, revenue growth, and conversions</strong>.</p>
+
+    <!-- Floating Neon Accent -->
+    <div class="glow-cyan"></div>
+
+    <!-- Filter Buttons -->
+    <div class="filter-row">
+      <button class="filter-btn active" data-filter="all">All</button>
+      <button class="filter-btn" data-filter="web">Web Development</button>
+      <button class="filter-btn" data-filter="shopify">Shopify</button>
+      <button class="filter-btn" data-filter="marketing">Marketing</button>
+    </div>
+
+    <!-- Portfolio Grid -->
+    <div class="grid">
+      <!-- Project 1 -->
+      <a href="project-bakery.html" class="project-box" data-category="shopify">
+        <img src="images/Home.png" alt="Bakery eCommerce">
+        <h3>Bakery eCommerce</h3>
+        <p><strong>Revenue +45% in 2 months</strong> • France</p>
+      </a>
+
+      <!-- Project 2 -->
+      <a href="project-lawfirm.html" class="project-box" data-category="web">
+        <img src="images/Hotels Business Website.png" alt="Law Firm Website">
+        <h3>Hotel Business Website</h3>
+        <p><strong>Lead quality improved 3x</strong> • UK</p>
+      </a>
+
+      <!-- Project 3 -->
+      <a href="project-retail.html" class="project-box" data-category="shopify">
+        <img src="images/Home (1).png" alt="Retail Store Migration">
+        <h3>Retail Store Migration</h3>
+        <p><strong>Conversions +32%</strong> • USA</p>
+      </a>
+
+      <!-- Project 4 -->
+      <a href="project-fashion.html" class="project-box" data-category="shopify">
+        <img src="images/Coming Soon Website Coming Soon Page in Dark Green Beige Casual Corporate Style.png" alt="Fashion eCommerce">
+        <h3>Jewelery Store eCommerce</h3>
+        <p><strong>Online sales +60%</strong> • UAE</p>
+      </a>
+
+      <!-- Project 5 -->
+      <a href="project-restaurant.html" class="project-box" data-category="web">
+        <img src="images/Food & Restaurant Service Website in Yellow Maroon White Simple Style (1).png" alt="Restaurant Website">
+        <h3>Restaurant Website</h3>
+        <p><strong>Monthly leads +50%</strong> • Canada</p>
+      </a>
+
+      <!-- Project 6 -->
+      <a href="project-startup.html" class="project-box" data-category="marketing">
+        <img src="images/Home (2).png" alt="Tech Startup Landing Page">
+        <h3>Startup Landing Page</h3>
+        <p><strong>Signups +35%</strong> • Germany</p>
+      </a>
+    </div>
+
+    <!-- CTA Buttons -->
+    <div style="text-align:center;">
+      <a href="index.html" class="back-link">← Back to Home</a>
+      <a href="index.html#contact" class="back-link" style="margin-left:12px;">📩 Get a Free Quote</a>
+    </div>
+
+  </div>
+
+  <script>
+    // Portfolio filter
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    const cards = document.querySelectorAll('.project-box');
+
+    filterBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        // Remove active class from all buttons
+        filterBtns.forEach(b => b.classList.remove('active'));
+        // Add active class to clicked button
+        btn.classList.add('active');
+
+        const filter = btn.getAttribute('data-filter');
+
+        // Show/hide cards based on filter
+        cards.forEach(c => {
+          if(filter === 'all' || c.getAttribute('data-category') === filter){
+            c.style.display = 'block';
+          } else {
+            c.style.display = 'none';
+          }
+        });
+      });
+    });
+  </script>
+</body>
+</html>
+
+
